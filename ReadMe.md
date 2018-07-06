@@ -20,7 +20,7 @@
 
 
 ```
-//ProblemSolvingActivity
+- ProblemSolvingActivity
 
 binding.viewmodel?.getResultItems()?.observe(this, Observer { results ->
             if (results != null) {
@@ -36,7 +36,7 @@ binding.viewmodel?.getResultItems()?.observe(this, Observer { results ->
         })
 
 
-//ResultAdapterDataBinding
+- ResultAdapterDataBinding
 
 fun addItems(lists: MutableList<Result>) {
         if(list.size>0) {
@@ -55,7 +55,7 @@ fun addItems(lists: MutableList<Result>) {
 
 
 ```
-//CalculatorViewModel
+- CalculatorViewModel
 
 fun btnSymbol(view: View) { //(0~9같은 숫자버튼들과, +-등의 기호버튼들 , clear, result등의 기능 버튼들을 기능에 따라 묶어
 			// 각각 메소드 하나로 표현하였습니다.(여기선 +-등의 심볼)
@@ -76,7 +76,7 @@ fun btnSymbol(view: View) { //(0~9같은 숫자버튼들과, +-등의 기호버튼들 , clear, 
     }
 
 
-CalculatorActivity
+- CalculatorActivity
 
 binding.viewmodel?.text?.observe(this, Observer { text ->
             if(text!!.length>0) {
