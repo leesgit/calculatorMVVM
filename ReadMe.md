@@ -16,9 +16,6 @@
 
 - ### 핵심 코드 설명
 
-  - 문제 화면
-
-
 ```
 - ProblemSolvingActivity
 
@@ -49,10 +46,6 @@ fun addItems(lists: MutableList<Result>) {
 //뷰모델에서 리스트가 아닌 하나의 아이템을 저장할 경우 회전되어도 마지막 정답만 살아 남기 때문에 모든 데이터들의 
 // 보존을 위해 viewmodel에서 단일 아이템이 아닌 list로 정보를 관리 합니다.
 ```
-
-
-  - 계산기 화면
-
 
 ```
 - CalculatorViewModel
