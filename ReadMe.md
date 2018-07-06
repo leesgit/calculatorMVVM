@@ -24,7 +24,7 @@ binding.viewmodel?.getResultItems()?.observe(this, Observer { results ->
                 adapter?.addItems(results)  //뷰모델에 저장된 정답 결과들을 adpater에 보냅니다.
                 adapter?.notifychanged() 
                 rv_problem_answer_result_tag.smoothScrollToPosition(rv_problem_answer_result_tag.getAdapter().getItemCount());
-                if (results.get(results.size - 1).isResult) {       //가장 최근의 정답이 true일 경우 맞는 음악 false일 경우 틀린음악을 재생합니다.
+                if (results.get(results.size - 1).isResult) {  //가장 최근의 정답이 true일 경우 맞는 음악 false일 경우 틀린음악을 재생합니다.
                     music.answerSound(this, resouceCorrect, true)
                 } else {
                     music.answerSound(this, resouceInCorrect, false)
@@ -55,10 +55,10 @@ fun btnSymbol(view: View) { //(0~9같은 숫자버튼들과, +-등의 기호버튼들 , clear, 
 
         val num = StringTokenizer(statement.toString(), "+-/X")
         val oper = StringTokenizer(statement.toString(), "1234567890.")
-        if (symbol == true && num.countTokens() >= oper.countTokens()) { // 1++2와 같은 오류들을 방지하기 위해 boolean값과 StringTonkenizer를 
-							          // 통해(숫자들의 갯수와 부호 갯수비교) 오류를 방지 합니다.
+        if (symbol == true && num.countTokens() >= oper.countTokens()) { // 1++2와 같은 오류들을 방지하기 위해 
+				 // boolean값과 StringTonkenizer를 통해(숫자들의 갯수와 부호 갯수비교) 오류를 방지 합니다.
             when (view.tag as String) {  //태그 값을 이용하여 코드의 중복을 줄입니다.
-			                           "plus" -> statement.append("+")
+	    "plus" -> statement.append("+")
                 "minus" -> statement.append("-")
                 "division" -> statement.append("/")
                 "multiply" -> statement.append("X")
