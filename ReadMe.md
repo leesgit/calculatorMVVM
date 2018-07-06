@@ -18,9 +18,9 @@
 
   -문제 화면
 
-<code>
+
 ```
-ProblemSolvingActivity
+//ProblemSolvingActivity
 
 binding.viewmodel?.getResultItems()?.observe(this, Observer { results ->
             if (results != null) {
@@ -36,7 +36,7 @@ binding.viewmodel?.getResultItems()?.observe(this, Observer { results ->
         })
 
 
-ResultAdapterDataBinding
+//ResultAdapterDataBinding
 
 fun addItems(lists: MutableList<Result>) {
         if(list.size>0) {
@@ -48,21 +48,14 @@ fun addItems(lists: MutableList<Result>) {
 
 //뷰모델에서 리스트가 아닌 하나의 아이템을 저장할 경우 회전되어도 마지막 정답만 살아 남기 때문에 모든 데이터들의 
 // 보존을 위해 viewmodel에서 단일 아이템이 아닌 list로 정보를 관리 합니다.
-
-
 ```
-</code>
-
 
 
   -계산기 화면
 
 
-
-
-<code>
 ```
-CalculatorViewModel
+//CalculatorViewModel
 
 fun btnSymbol(view: View) { //(0~9같은 숫자버튼들과, +-등의 기호버튼들 , clear, result등의 기능 버튼들을 기능에 따라 묶어
 			// 각각 메소드 하나로 표현하였습니다.(여기선 +-등의 심볼)
@@ -101,8 +94,8 @@ binding.viewmodel?.text?.observe(this, Observer { text ->
 
 //현재 뷰모델에 관리되고 있는 text값(사용자가 숫자입력하는 텍스트)을 실시간으로 observe하여 마지막 문자가 부호일경우 실시간 계산 텍스트를 수정하며
 //마지막 부호가 123456789일 경우 해당 번호에 맞는 음성을 재생합니다.
-//0의 경우 clear하거나 처음 생성됬을 경우 값이 0이라 음성이 재생될수 있으므로 text의 길이가 2이상일때 재생 해주기 위해 따로 처리 해줬습니다.
+//0의 경우 clear하거나 처음 생성되었을 경우 값이 0이라 음성이 재생될수 있으므로 text의 길이가 2이상일때 재생 해주기 위해 따로 처리 해줬습니다.
 ```
-</code>
+
 
 
