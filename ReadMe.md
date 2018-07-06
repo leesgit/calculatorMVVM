@@ -46,21 +46,26 @@ fun addItems(lists: MutableList<Result>) {
         }
     }
 
-//뷰모델에서 리스트가 아닌 하나의 아이템을 저장할 경우 회전되어도 마지막 정답만 살아 남기 때문에 모든 데이터들의 보존을 위해 viewmodel에서
-//단일 아이템이 아닌 list로 정보를 관리 합니다.
+//뷰모델에서 리스트가 아닌 하나의 아이템을 저장할 경우 회전되어도 마지막 정답만 살아 남기 때문에 모든 데이터들의 
+// 보존을 위해 viewmodel에서 단일 아이템이 아닌 list로 정보를 관리 합니다.
 
 
 ```
 </code>
 
 
+
   -계산기 화면
+
+
+
 
 <code>
 ```
 CalculatorViewModel
 
-fun btnSymbol(view: View) { //(0~9같은 숫자버튼들과, +-등의 기호버튼들 , clear, result등의 기능 버튼들을 기능에 따라 묶어 각각 메소드 하나로 표현하였습니다.(여기선 +-등의 심볼)
+fun btnSymbol(view: View) { //(0~9같은 숫자버튼들과, +-등의 기호버튼들 , clear, result등의 기능 버튼들을 기능에 따라 묶어
+			// 각각 메소드 하나로 표현하였습니다.(여기선 +-등의 심볼)
 
         val num = StringTokenizer(statement.toString(), "+-/X")
         val oper = StringTokenizer(statement.toString(), "1234567890.")
