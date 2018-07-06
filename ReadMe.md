@@ -34,8 +34,8 @@ binding.viewmodel?.getResultItems()?.observe(this, Observer { results ->
                 }
             }
         })
-
-
+```
+```
 - ResultAdapterDataBinding
 
 fun addItems(lists: MutableList<Result>) {
@@ -74,8 +74,9 @@ fun btnSymbol(view: View) { //(0~9같은 숫자버튼들과, +-등의 기호버튼들 , clear, 
             symbol = false
         }
     }
+```
 
-
+```
 - CalculatorActivity
 
 binding.viewmodel?.text?.observe(this, Observer { text ->
