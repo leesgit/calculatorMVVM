@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewmodel"
+            type="com.lbc.practice.calculator.viewmodel.ResultListViewModel" />
+    </data>
+<android.support.constraint.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="5dp">
+
+    <TextView
+        android:id="@+id/problem_answer_result_number"
+        style="@style/NomalSize"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@{viewmodel.state ? @drawable/correct_circle : @drawable/in_correct_circle}"
+        android:gravity="center"
+        android:text="@{viewmodel.text}"
+        android:textColor="@{viewmodel.state ? @color/correct_color : @color/in_correct_color }" />
+
+</android.support.constraint.ConstraintLayout>
+
+</layout>
