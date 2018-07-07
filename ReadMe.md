@@ -15,6 +15,7 @@
  `problemNumber` INT(11) NOT NULL, `problemContent` VARCHAR(255)  NOT NULL, `problemAnswer` VARCHAR(255)  NOT NULL,
  PRIMARY KEY (`idx`)); 로 구성 되어있습니다.
 
+  - Dagger2가 아닌 InjectorUtil을 따로 생성하여(google samples sunflower) repository나 context값등을 할당하는 방법도 있지만 Dagger2를 이용하여 형태를 좀 달리 하였습니다. 
 
 - ### 핵심 코드 설명
 

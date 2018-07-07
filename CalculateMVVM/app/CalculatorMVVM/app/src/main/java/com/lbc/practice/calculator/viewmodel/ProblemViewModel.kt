@@ -52,6 +52,7 @@ class ProblemViewModel : ViewModel {
         dataSource = repository
         mcontext = application
         setStart(LessonType.plus)
+
     }
 
 
@@ -68,6 +69,7 @@ class ProblemViewModel : ViewModel {
             }
 
             override fun onFailData(errorMsg: String) {
+                Toast.makeText(mcontext, errorMsg, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -83,7 +85,7 @@ class ProblemViewModel : ViewModel {
                 }
 
                 override fun onFailData(errorMsg: String) {
-//                    problemView?.Toast(errorMsg)
+                    Toast.makeText(mcontext, errorMsg, Toast.LENGTH_SHORT).show()
                 }
             })
             dataSource.getLessonData(lessonType, cnt, object : DataSource.LoadDataCallBack2 {
@@ -93,7 +95,7 @@ class ProblemViewModel : ViewModel {
                 }
 
                 override fun onFailData(errorMsg: String) {
-
+                    Toast.makeText(mcontext, errorMsg, Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -135,7 +137,7 @@ class ProblemViewModel : ViewModel {
             }
 
             override fun onFailData(errorMsg: String) {
-
+                Toast.makeText(mcontext, errorMsg, Toast.LENGTH_SHORT).show()
             }
         })
         checkState.postValue(false)
