@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.util.CalculateManager
 import com.lbc.practice.calculator.util.MusicManager
@@ -71,7 +72,7 @@ class CalculatorViewModel : ViewModel {
             "result"-> try {
                 result.postValue(calc.calculate(statement.toString()))
             } catch (e: NumberFormatException) {
-//                calculatorView?.Toast("입력값을 제대로 해주세요.")
+                Toast.makeText(view.context, "입력값을 제대로 해주세요.",Toast.LENGTH_SHORT).show()
             }
         }
     }

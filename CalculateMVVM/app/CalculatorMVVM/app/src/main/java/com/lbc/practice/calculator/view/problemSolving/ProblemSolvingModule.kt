@@ -5,6 +5,7 @@ import com.lbc.practice.calculator.di.ActivityScope
 import com.lbc.practice.calculator.viewmodel.ViewModelFactory
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 
 
 @Module

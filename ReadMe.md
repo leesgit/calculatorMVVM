@@ -6,6 +6,8 @@
 
   - 문제풀이 화면의 이미지는 백터 이미지 이고 계산기에 사용된 이미지는 xxhdpi입니다. 이미지와 음성 모두 제가 직접 만들었습니다.
 
+  - viewmodel에서 데이터를 관리 하기 때문에 어플이 회전되어 onCreate 될 경우에도 데이터를 유지합니다.(포트폴리오에 링크된 동영상 xx:xx시간)  
+
   - 실행 시키시려면 서버를 작동 시키고 RetrofitManager에 서버 주소를 입력 하셔야 하며 서버의 주소에 따라 /cal을 붙여 주시거 떼어 주시면됩니다.
 
   - Db는  `idx` INT(11) NOT NULL AUTOINCREAMENT,
@@ -24,10 +26,12 @@ binding.viewmodel?.getResultItems()?.observe(this, Observer { results ->
                 adapter?.addItems(results)  //뷰모델에 저장된 정답 결과들을 adpater에 보냅니다.
                 adapter?.notifychanged() 
                 rv_problem_answer_result_tag.smoothScrollToPosition(rv_problem_answer_result_tag.getAdapter().getItemCount());
-                if (results.get(results.size - 1).isResult) {  //가장 최근의 정답이 true일 경우 맞는 음악 false일 경우 틀린음악을 재생합니다.
+                if (results.get(results.size - 1).isResult&&viewmodel.symbolState) {  //가장 최근의 정답이 true일 경우 정답 음악 false일 경우 오답 음악을 재생합니다.
                     music.answerSound(this, resouceCorrect, true)
-                } else {
+                    viewmodel.symbolState = false   // 화면이 뒤집어져 다시 생성 되면서 사운드가 재생 되는것을 방지하기 위한 변수
+                } else if(results.get(results.size - 1).isResult==false&&viewmodel.symbolState) {
                     music.answerSound(this, resouceInCorrect, false)
+                    viewmodel.symbolState = false  // 화면이 뒤집어져 다시 생성 되면서 사운드가 재생 되는것을 방지하기 위한 변수
                 }
             }
         })
@@ -43,9 +47,26 @@ fun addItems(lists: MutableList<Result>) {
         }
     }
 
-//뷰모델에서 리스트가 아닌 하나의 아이템을 저장할 경우 회전되어도 마지막 정답만 살아 남기 때문에 모든 데이터들의 
+//뷰모델에서 리스트가 아닌 하나의 아이템을 저장할 경우 회전 되어도 마지막 정답만 살아 남기 때문에 모든 데이터들의 
 // 보존을 위해 viewmodel에서 단일 아이템이 아닌 list로 정보를 관리 합니다.
 ```
+
+
+```
+- InnerViewHolder
+
+class InnerViewHolder(private val binding: ItemProblemSolvingResultTagBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(itemResult: Result) {
+            with(binding) {
+                viewmodel = ResultListViewModel(itemResult)
+                executePendingBindings()
+            }
+        }
+        //여기서 viewmodel을 할당하지 않고 setVariable(BR.result, imtemReult)과 xml에 variable로 result를 설정 해둔 다음에 
+        //데이터를 연결해도 되지만 다양한 경험을 위해 viewmodel연결을 하였습니다.
+    }
+```
+
 
 ```
 - CalculatorViewModel
@@ -85,7 +106,6 @@ binding.viewmodel?.text?.observe(this, Observer { text ->
                 }
             }
         })
-
 //현재 뷰모델에 관리되고 있는 text값(사용자가 숫자입력하는 텍스트)을 실시간으로 observe하여 마지막 문자가 부호일경우 실시간 계산 텍스트를 수정하며
 //마지막 부호가 123456789일 경우 해당 번호에 맞는 음성을 재생합니다.
 //0의 경우 clear하거나 처음 생성되었을 경우 값이 0이라 음성이 재생될수 있으므로 text의 길이가 2이상일때 재생 해주기 위해 따로 처리 해줬습니다.

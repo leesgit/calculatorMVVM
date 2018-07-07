@@ -63,10 +63,12 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
                 adapter?.addItems(results)
                 adapter?.notifychanged()
                 rv_problem_answer_result_tag.smoothScrollToPosition(rv_problem_answer_result_tag.getAdapter().getItemCount());
-                if (results.get(results.size - 1).isResult) {
+                if (results.get(results.size - 1).isResult&&viewmodel.symbolState) {
                     music.answerSound(this, resouceCorrect, true)
-                } else {
+                    viewmodel.symbolState = false
+                } else if(results.get(results.size - 1).isResult==false&&viewmodel.symbolState) {
                     music.answerSound(this, resouceInCorrect, false)
+                    viewmodel.symbolState = false
                 }
             }
         })

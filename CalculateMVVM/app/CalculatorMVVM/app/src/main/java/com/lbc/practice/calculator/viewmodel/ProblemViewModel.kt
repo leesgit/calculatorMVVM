@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Intent
 import android.view.View
+import android.widget.Toast
 import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.data.LessonData
 import com.lbc.practice.calculator.data.LessonType
@@ -21,20 +22,19 @@ class ProblemViewModel : ViewModel {
     val title = MutableLiveData<String>()
     val problem = MutableLiveData<String>()
     val answer = MutableLiveData<String>()
-    val next = MutableLiveData<String>()
+    val next = MutableLiveData<String>().apply { value ="" }
     val numCount = MutableLiveData<Int>()
     val num = MutableLiveData<Int>()
     val calNum = MutableLiveData<String>()
-    val calVisibility = MutableLiveData<Boolean>()
+    val calVisibility = MutableLiveData<Boolean>().apply { value =true }
     val checkState = MutableLiveData<Boolean>()
     val answerResult = MutableLiveData<Boolean>()
-    val end = MutableLiveData<Boolean>()
+    val end = MutableLiveData<Boolean>().apply { value =false }
     val nextState = MutableLiveData<Boolean>()
     val inputSet = MutableLiveData<Boolean>()
-    val checkInput = MutableLiveData<Boolean>()
-    val symbolState = MutableLiveData<Boolean>()
-    val calstate = MutableLiveData<Boolean>()
-    val calBackground = MutableLiveData<Int>()
+    val checkInput = MutableLiveData<Boolean>().apply { value = false }
+    val calstate = MutableLiveData<Boolean>().apply { value = true }
+    val calBackground = MutableLiveData<Int>().apply { value =  R.color.basic }
     val results = MediatorLiveData<MutableList<Result>>()
     var list: MutableList<Result> = ArrayList<Result>()
 
@@ -43,34 +43,23 @@ class ProblemViewModel : ViewModel {
     var problemCount = 0
     var calString: String? = null
 
+    var symbolState = false
+
     var dataSource: DataSource
     var mcontext: Application
 
     constructor(repository: Repository, application: Application) {
         dataSource = repository
         mcontext = application
-        init()
         setStart(LessonType.plus)
     }
 
-    fun init() {
-        end.postValue(false)
-        next.value = ""
 
-        calVisibility.value = true
-        checkInput.value = false
-        symbolState.value = false
-
-        calString = mcontext.getString(R.string.calculator_chance_format)
-
-        calstate.value = true
-
-        calBackground.value = R.color.basic
-    }
 
     fun setStart(lessonType: Int) {
         dataSource.getProblemCount(object : DataSource.LoadDataCallBack3 {
             override fun onLoadData(count: Integer) {
+                calString = mcontext.getString(R.string.calculator_chance_format)
                 problemCount = count.toInt()
                 numCount.value = problemCount
                 calNum.postValue(calString + calCount)
@@ -136,11 +125,12 @@ class ProblemViewModel : ViewModel {
                     list.add(Result(cnt,true))
                     results.postValue(list)
                     answerResult.postValue(true)
+                    symbolState = true
                 } else {
                     list.add(Result(cnt,false))
                     results.postValue(list)
                     answerResult.postValue(false)
-
+                    symbolState = true
                 }
             }
 
