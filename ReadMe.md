@@ -6,9 +6,9 @@
 
   - 문제풀이 화면의 이미지는 백터 이미지 이고 계산기에 사용된 이미지는 xxhdpi입니다. 이미지와 음성 모두 제가 직접 만들었습니다.
 
-  - viewmodel에서 데이터를 관리 하기 때문에 어플이 회전되어 onCreate 될 경우에도 데이터를 유지합니다.(포트폴리오에 링크된 동영상 xx:xx시간)  
+  - viewmodel에서 데이터를 관리 하기 때문에 어플이 회전 되어 onCreate 될 경우에도 데이터를 유지합니다.(포트폴리오에 링크된 동영상 1분8초를 보시면 됩니다.)  
 
-  - 실행 시키시려면 서버를 작동 시키고 RetrofitManager에 서버 주소를 입력 하셔야 하며 서버의 주소에 따라 /cal을 붙여 주시거 떼어 주시면됩니다.
+  - 실행 시키시려면 서버를 작동 시키고 RetrofitManager에 서버 주소를 입력 하셔야 하며 서버의 주소에 따라 /cal을 붙여 주시거나 떼어 주시면됩니다.
 
   - Db는  `idx` INT(11) NOT NULL AUTOINCREAMENT,
   `lessonNum` INT(11) NOT NULL, `lessonName` VARCHAR(255)  NOT NULL,
