@@ -2,29 +2,20 @@ package com.lbc.practice.calculator.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.util.CalculateManager
-import com.lbc.practice.calculator.util.MusicManager
 import java.lang.StringBuilder
 import java.util.*
-import javax.inject.Inject
 
-class CalculatorViewModel : ViewModel {
+class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
     val text = MutableLiveData<String>()
     val result = MutableLiveData<String>()
 
     var statement = StringBuilder("0")
     var symbol = false
     var point = false
-    var id = 0
-    var calc : CalculateManager
-
-    constructor(calc: CalculateManager?) : super() {
-        this.calc = calc!!
-    }
+    var calc = calculator
 
 
     fun btnNum(view: View) {
@@ -87,4 +78,6 @@ class CalculatorViewModel : ViewModel {
             point = false
         }
     }
+
+
 }

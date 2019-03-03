@@ -50,6 +50,6 @@ class ResultAdapterDataBinding : RecyclerView.Adapter<ResultAdapterDataBinding.I
                 executePendingBindings()
             }
         }
-        //여기서 viewmodel을 할당하지 않고 setVariable(BR.result, imtemReult)과 xml에 variable로 result를 설정 해둔 다음에 데이터를 연결해도 되지만 다양한 경험을 위해 viewmodel연결을 하였습니다.
+        //여기서 viewmodel을 할당하지 않고 바로 itemResult를 넘겨 databinding 해도 되지만 다양한 경험을 위해 viewmodel이용 하였습니다.
     }
 }

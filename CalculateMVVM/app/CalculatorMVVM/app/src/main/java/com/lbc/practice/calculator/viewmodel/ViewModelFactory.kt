@@ -29,7 +29,7 @@ class ViewModelFactory : ViewModelProvider.Factory{
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ProblemViewModel::class.java)) {
-            return ProblemViewModel(repository, application) as T
+            return ProblemViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(CalculatorViewModel::class.java)) {
             return CalculatorViewModel(calc) as T
         }
