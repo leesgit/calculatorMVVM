@@ -1,10 +1,10 @@
 package com.lbc.practice.calculator.viewmodel
 
-import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Intent
 import android.view.View
+import androidx.lifecycle.MediatorLiveData
 import com.lbc.practice.calculator.data.LessonData
 import com.lbc.practice.calculator.data.LessonType
 import com.lbc.practice.calculator.data.Problem
