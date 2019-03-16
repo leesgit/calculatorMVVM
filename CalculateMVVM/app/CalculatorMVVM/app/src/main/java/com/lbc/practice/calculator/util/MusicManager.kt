@@ -2,7 +2,6 @@ package com.lbc.practice.calculator.util
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.util.Log
 
 class MusicManager {
 

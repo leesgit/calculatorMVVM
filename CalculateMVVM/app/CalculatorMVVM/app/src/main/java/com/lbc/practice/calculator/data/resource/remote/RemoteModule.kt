@@ -1,6 +1,5 @@
 package com.lbc.practice.calculator.data.resource.remote
 
-import android.content.Context
 import com.lbc.practice.calculator.util.RetrofitManager
 import dagger.Module
 import dagger.Provides

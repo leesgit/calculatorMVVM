@@ -5,16 +5,7 @@ import com.lbc.practice.calculator.data.resource.remote.RemoteDataSource
 import javax.inject.Inject
 
 
-class Repository : DataSource {
-
-
-    private var remoteDataSource: RemoteDataSource? = null
-
-
-    @Inject
-    constructor(remoteDataSource: RemoteDataSource?) {
-        this.remoteDataSource = remoteDataSource
-    }
+class Repository @Inject constructor(private var remoteDataSource: RemoteDataSource?) : DataSource {
 
 
     override fun getProblem( num: Int, loadDataCallBack: DataSource.LoadDataCallBack) {

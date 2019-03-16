@@ -16,11 +16,11 @@ import retrofit2.http.POST
 import java.net.CookieManager
 import java.net.CookiePolicy
 
-public class RetrofitManager {
+public class RetrofitManager() {
 
     var url : RetrofitUrl?=null
 
-    constructor() {
+    init {
         val cookieManager = CookieManager()
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
         val client = OkHttpClient.Builder()

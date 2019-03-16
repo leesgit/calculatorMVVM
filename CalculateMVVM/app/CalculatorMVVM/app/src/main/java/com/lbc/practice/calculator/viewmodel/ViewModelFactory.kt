@@ -1,12 +1,10 @@
 package com.lbc.practice.calculator.viewmodel
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lbc.practice.calculator.data.resource.Repository
 import com.lbc.practice.calculator.util.CalculateManager
-import com.lbc.practice.calculator.util.MusicManager
 import javax.inject.Inject
 import javax.inject.Singleton
 

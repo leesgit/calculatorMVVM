@@ -4,7 +4,6 @@ package com.lbc.practice.calculator.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.data.Result
 import com.lbc.practice.calculator.databinding.ItemProblemSolvingResultTagBinding
 import com.lbc.practice.calculator.viewmodel.ResultListViewModel

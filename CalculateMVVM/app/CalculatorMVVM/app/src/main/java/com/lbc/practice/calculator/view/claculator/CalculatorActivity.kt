@@ -7,9 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.lbc.practice.calculator.R
-import com.lbc.practice.calculator.R.id.tv_rx_text
 import com.lbc.practice.calculator.databinding.ActivityCalculatorBinding
-import com.lbc.practice.calculator.databinding.ActivityProblemSolvingBinding
 import com.lbc.practice.calculator.util.CalculateManager
 import com.lbc.practice.calculator.util.MusicManager
 import com.lbc.practice.calculator.viewmodel.CalculatorViewModel

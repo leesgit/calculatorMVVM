@@ -7,18 +7,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.adapter.ResultAdapterDataBinding
-import com.lbc.practice.calculator.data.resource.Repository
-import com.lbc.practice.calculator.data.resource.remote.RemoteDataSource
 import com.lbc.practice.calculator.databinding.ActivityProblemSolvingBinding
 import com.lbc.practice.calculator.util.MusicManager
-import com.lbc.practice.calculator.viewmodel.CalculatorViewModel
 import com.lbc.practice.calculator.viewmodel.ProblemViewModel
-import com.lbc.practice.calculator.viewmodel.ResultListViewModel
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_problem_solving.*
 import javax.inject.Inject
 
 

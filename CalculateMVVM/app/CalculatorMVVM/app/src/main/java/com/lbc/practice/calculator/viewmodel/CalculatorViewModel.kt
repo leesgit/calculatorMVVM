@@ -21,7 +21,6 @@ class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
     var point = false
     var calc = calculator
 
-
     fun btnNum(view: View) {
         view.tag
         val str = view.tag as String

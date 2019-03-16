@@ -12,12 +12,9 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class RemoteDataSource :DataSource {
+class RemoteDataSource @Inject constructor() :DataSource {
 
     val Error = "통신 실패 했습니다."
-
-    @Inject
-    constructor()
 
     @Inject
     lateinit var retrofitManager: RetrofitManager
