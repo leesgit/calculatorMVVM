@@ -1,12 +1,13 @@
 package com.lbc.practice.calculator.view.problemSolving
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.adapter.ResultAdapterDataBinding
 import com.lbc.practice.calculator.data.resource.Repository
@@ -27,6 +28,7 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
     var resouceMain: Int = 0
     var resouceCorrect: Int = 0
     var resouceInCorrect: Int = 0
+    var recycler :RecyclerView?=null
     var adapter: ResultAdapterDataBinding? = null
     var start = false
     lateinit var binding: ActivityProblemSolvingBinding
@@ -67,7 +69,7 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
             if (results != null) {
                 adapter?.addItems(results)
                 adapter?.notifychanged()
-                binding.rvProblemAnswerResultTag.smoothScrollToPosition(rv_problem_answer_result_tag.getAdapter().getItemCount());
+                binding.rvProblemAnswerResultTag.smoothScrollToPosition(binding.rvProblemAnswerResultTag.getAdapter()!!.getItemCount());
                 if (results.get(results.size - 1).isResult && viewmodel.symbolState) {
                     music.answerSound(this, resouceCorrect, true)
                     viewmodel.symbolState = false

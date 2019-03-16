@@ -9,7 +9,7 @@
             type="com.lbc.practice.calculator.viewmodel.CalculatorViewModel" />
     </data>
 
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -284,5 +284,5 @@
         </LinearLayout>
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

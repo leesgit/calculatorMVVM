@@ -1,7 +1,6 @@
 package com.lbc.practice.calculator.view.claculator
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import com.lbc.practice.calculator.di.ActivityScope
 import com.lbc.practice.calculator.viewmodel.CalculatorViewModel
 import com.lbc.practice.calculator.viewmodel.ViewModelFactory

@@ -1,16 +1,11 @@
 package com.lbc.practice.calculator.view.claculator;
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
-import android.os.Bundle;
+import androidx.databinding.DataBindingUtil
+import android.os.Bundle
 import android.view.WindowManager
-import android.view.View
-import android.widget.Toast
-import butterknife.ButterKnife
-import butterknife.OnClick
-import com.jakewharton.rxbinding2.widget.RxTextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.R.id.tv_rx_text
 import com.lbc.practice.calculator.databinding.ActivityCalculatorBinding
@@ -18,13 +13,7 @@ import com.lbc.practice.calculator.databinding.ActivityProblemSolvingBinding
 import com.lbc.practice.calculator.util.CalculateManager
 import com.lbc.practice.calculator.util.MusicManager
 import com.lbc.practice.calculator.viewmodel.CalculatorViewModel
-import com.lbc.practice.calculator.viewmodel.ProblemViewModel
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_calculator.*
 import javax.inject.Inject
 
 class CalculatorActivity : DaggerAppCompatActivity() {

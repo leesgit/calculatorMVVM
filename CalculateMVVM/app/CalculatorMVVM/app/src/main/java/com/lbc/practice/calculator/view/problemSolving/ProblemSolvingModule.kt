@@ -1,6 +1,6 @@
 package com.lbc.practice.calculator.view.problemSolving
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import com.lbc.practice.calculator.di.ActivityScope
 import com.lbc.practice.calculator.viewmodel.ViewModelFactory
 import dagger.Binds
@@ -13,6 +13,6 @@ abstract class ProblemSolvingModule {
 
     @ActivityScope
     @Binds
-    abstract fun provideViewModelFactory(viewModelFactory: ViewModelFactory) :ViewModelProvider.Factory
+    abstract fun provideViewModelFactory(viewModelFactory: ViewModelFactory) : ViewModelProvider.Factory
 
 }

@@ -1,10 +1,9 @@
 package com.lbc.practice.calculator.adapter
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.android.databinding.library.baseAdapters.BR
+import androidx.recyclerview.widget.RecyclerView
 import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.data.Result
 import com.lbc.practice.calculator.databinding.ItemProblemSolvingResultTagBinding

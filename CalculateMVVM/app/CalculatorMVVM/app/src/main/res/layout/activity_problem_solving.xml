@@ -11,7 +11,7 @@
     </data>
 
 
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/problem_solving"
 
     android:layout_width="match_parent"
@@ -25,12 +25,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:text="@{viewmodel.title}"
         app:layout_constraintBottom_toTopOf="@+id/pg_problem_solving_progress"
         app:layout_constraintStart_toEndOf="@+id/iv_problem_number_box"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp" />
 
     <ProgressBar
         android:id="@+id/pg_problem_solving_progress"
@@ -60,7 +61,8 @@
         android:textColor="@color/white"
         android:textSize="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="30dp" />
 
     <TextView
         android:id="@+id/tv_problem_content"
@@ -127,7 +129,8 @@
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="30dp" />
 
     <Button
         android:id="@+id/btn_move_calculator"
@@ -152,7 +155,8 @@
         android:text="@{viewmodel.calNum}"
         app:layout_constraintBottom_toTopOf="@+id/btn_move_calculator"
         app:layout_constraintEnd_toEndOf="@+id/btn_move_calculator"
-        app:layout_constraintStart_toStartOf="@+id/btn_move_calculator" />
+        app:layout_constraintStart_toStartOf="@+id/btn_move_calculator"
+        android:layout_marginRight="8dp" />
 
     <ScrollView
         android:id="@+id/sv_result_tag_scroll_view"
@@ -162,9 +166,10 @@
         android:layout_marginStart="30dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="30dp">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_problem_answer_result_tag"
             style="@style/NomalSize"
             android:layout_width="wrap_content"
@@ -175,5 +180,5 @@
             tools:listitem="@layout/item_problem_solving_result_tag" />
     </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
