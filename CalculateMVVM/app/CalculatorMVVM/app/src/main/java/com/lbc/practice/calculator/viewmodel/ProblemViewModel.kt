@@ -33,6 +33,7 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
     val results = MediatorLiveData<MutableList<Result>>()
     var list: MutableList<Result> = ArrayList<Result>()
     val toastMessage = MutableLiveData<String>()
+    val answerSound = MutableLiveData<Boolean>()
 
     var cnt = 0
     var calCount = 2
@@ -152,6 +153,16 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
 
     fun checkChange() {
         checkInput.value = answer.value!!.length > 0
+    }
+
+    fun answerSound() {
+        if (results.value!!.get(results.value!!.size - 1).isResult && symbolState) {
+            answerSound.postValue(true)
+            symbolState = false
+        } else if (results.value!!.get(results.value!!.size - 1).isResult == false && symbolState) {
+            answerSound.postValue(false)
+            symbolState = false
+        }
     }
 
 

@@ -45,17 +45,21 @@ class CalculatorActivity : DaggerAppCompatActivity() {
             it.setLifecycleOwner(this)
         }
 
-        binding.viewmodel?.text?.observe(this, Observer {
-            if (it!!.length > 0) {
-                when (it.toString()[it.length - 1]) {
-                    '+', '-', 'X', '/' ->
-                        binding.tvRxText.text = calc.calculate(it.toString().substring(0, it.length - 1))
-                    '1', '2', '3', '4', '5', '6', '7', '8', '9' ->
-                        music.numberSound(application, resourceids!![Integer.parseInt(it.toString()[it.length - 1].toString())], Integer.parseInt(it.toString()[it.length - 1].toString()))
-                    '0' -> if (it.length > 1) {
-                        music.numberSound(application, resourceids!![0], 0)
-                    }
-                }
+        viewmodel.text.observe(this, Observer {
+            viewmodel.textChange()
+        })
+
+        viewmodel.numberSound.observe(this, Observer {
+            if(it) {
+                music.numberSound(application, resourceids!![Integer.parseInt(it.toString()[viewmodel.text.value!!.length - 1].toString())], Integer.parseInt(it.toString()[viewmodel.text.value!!.length - 1].toString()))
+                viewmodel.numberSound.value = false
+            }
+        })
+
+        viewmodel.numberSoundZero.observe(this, Observer {
+            if(it) {
+                music.numberSound(application, resourceids!![0], 0)
+                viewmodel.numberSoundZero.value = false
             }
         })
 

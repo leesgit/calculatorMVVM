@@ -12,6 +12,9 @@ import java.util.*
 class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
     val text = MutableLiveData<String>()
     val result = MutableLiveData<String>()
+    val rxText = MutableLiveData<String>()
+    val numberSound = MutableLiveData<Boolean>()
+    val numberSoundZero = MutableLiveData<Boolean>()
 
     var statement = StringBuilder("0")
     var symbol = false
@@ -77,6 +80,20 @@ class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
             statement.append(".")
             text.postValue(statement.toString())
             point = false
+        }
+    }
+
+    fun textChange() {
+        if (text.value!!.length > 0) {
+            when (text.value!!.toString()[text.value!!.length - 1]) {
+                '+', '-', 'X', '/' ->
+                    rxText.value = calc.calculate(text.value!!.toString().substring(0, text.value!!.length - 1))
+                '1', '2', '3', '4', '5', '6', '7', '8', '9' ->
+                    numberSound.value = true
+                '0' -> if (text.value!!.length > 1) {
+                    numberSoundZero.value = true
+                }
+            }
         }
     }
 

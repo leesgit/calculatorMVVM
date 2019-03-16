@@ -11,20 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ViewModelFactory : ViewModelProvider.Factory{
-
-    var repository: Repository
-    var application : Application
-    var calc : CalculateManager
-
-
-    @Inject
-    constructor(repository: Repository, application: Application, calc : CalculateManager) {
-        this.repository = repository
-        this.application = application
-        this.calc = calc
-    }
-
+class ViewModelFactory @Inject constructor(var repository: Repository, var application: Application, var calc: CalculateManager) : ViewModelProvider.Factory{
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

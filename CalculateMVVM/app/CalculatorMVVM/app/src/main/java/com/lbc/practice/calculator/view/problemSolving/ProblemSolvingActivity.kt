@@ -25,10 +25,9 @@ import javax.inject.Inject
 class ProblemSolvingActivity : DaggerAppCompatActivity() {
 
 
-    var resouceMain: Int = 0
-    var resouceCorrect: Int = 0
-    var resouceInCorrect: Int = 0
-    var recycler :RecyclerView?=null
+    var resouceMain = 0
+    var resouceCorrect = 0
+    var resouceInCorrect = 0
     var adapter: ResultAdapterDataBinding? = null
     var start = false
     lateinit var binding: ActivityProblemSolvingBinding
@@ -51,32 +50,35 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
             it.setLifecycleOwner(this)
         }
 
-        binding.viewmodel?.answer?.observe(this, Observer { data ->
+        viewmodel.answer.observe(this, Observer { data ->
             viewmodel.checkChange()
         })
 
-        binding.viewmodel?.checkEnd()?.observe(this, Observer { judge ->
+        viewmodel.checkEnd().observe(this, Observer { judge ->
             if (judge!!) {
                 finish()
             }
         })
 
-        binding.viewmodel?.toastMessage!!.observe(this, Observer {
+        viewmodel.toastMessage.observe(this, Observer {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
-        binding.viewmodel?.getResultItems()?.observe(this, Observer { results ->
+        viewmodel.getResultItems().observe(this, Observer { results ->
             if (results != null) {
                 adapter?.addItems(results)
                 adapter?.notifychanged()
                 binding.rvProblemAnswerResultTag.smoothScrollToPosition(binding.rvProblemAnswerResultTag.getAdapter()!!.getItemCount());
-                if (results.get(results.size - 1).isResult && viewmodel.symbolState) {
-                    music.answerSound(this, resouceCorrect, true)
-                    viewmodel.symbolState = false
-                } else if (results.get(results.size - 1).isResult == false && viewmodel.symbolState) {
-                    music.answerSound(this, resouceInCorrect, false)
-                    viewmodel.symbolState = false
-                }
+
+                viewmodel.answerSound()
+            }
+        })
+
+        viewmodel.answerSound.observe(this, Observer {
+            if (it) {
+                music.answerSound(this, resouceCorrect, true)
+            } else {
+                music.answerSound(this, resouceInCorrect, false)
             }
         })
 
