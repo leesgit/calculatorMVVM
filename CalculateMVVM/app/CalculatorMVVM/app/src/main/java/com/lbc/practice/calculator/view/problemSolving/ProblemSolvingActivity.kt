@@ -74,11 +74,17 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
             }
         })
 
-        viewmodel.answerSound.observe(this, Observer {
+        viewmodel.correctSound.observe(this, Observer {
             if (it) {
                 music.answerSound(this, resouceCorrect, true)
-            } else {
+                viewmodel.correctSound.value = false
+            }
+        })
+
+        viewmodel.inCorrectSound.observe(this, Observer {
+            if (it) {
                 music.answerSound(this, resouceInCorrect, false)
+                viewmodel.inCorrectSound.value = false
             }
         })
 
