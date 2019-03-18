@@ -23,7 +23,6 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
     var resouceCorrect = 0
     var resouceInCorrect = 0
     var adapter: ResultAdapterDataBinding? = null
-    var start = false
     lateinit var binding: ActivityProblemSolvingBinding
 
     @Inject
@@ -88,7 +87,6 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
     fun init() {
         adapter = ResultAdapterDataBinding()
 
-        start = true
 
         binding.rvProblemAnswerResultTag.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvProblemAnswerResultTag.adapter = adapter
@@ -107,9 +105,7 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (start) {
-            music.mainsongStart(this, resouceMain)
-        }
+        music.mainsongStart(this, resouceMain)
     }
 
     override fun onStop() {

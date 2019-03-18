@@ -20,7 +20,6 @@ class CalculatorActivity : DaggerAppCompatActivity() {
 
     var resourceids: IntArray? = IntArray(10)
     var resouceCal: Int = 0
-    var start = false
 
     @Inject
     lateinit var music: MusicManager
@@ -48,14 +47,14 @@ class CalculatorActivity : DaggerAppCompatActivity() {
         })
 
         viewmodel.numberSound.observe(this, Observer {
-            if(it) {
+            if (it) {
                 music.numberSound(application, resourceids!![Integer.parseInt(it.toString()[viewmodel.text.value!!.length - 1].toString())], Integer.parseInt(it.toString()[viewmodel.text.value!!.length - 1].toString()))
                 viewmodel.numberSound.value = false
             }
         })
 
         viewmodel.numberSoundZero.observe(this, Observer {
-            if(it) {
+            if (it) {
                 music.numberSound(application, resourceids!![0], 0)
                 viewmodel.numberSoundZero.value = false
             }
@@ -67,7 +66,6 @@ class CalculatorActivity : DaggerAppCompatActivity() {
 
     fun init() {
         var resourceId: Int
-        start =true
         for (i in 0..9) {
             resourceId = resources.getIdentifier("num$i", "raw", packageName)
             resourceids!![i] = resourceId
@@ -83,9 +81,7 @@ class CalculatorActivity : DaggerAppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(start) {
-            music.calSongStart(application, resouceCal)
-        }
+        music.calSongStart(application, resouceCal)
     }
 
 }

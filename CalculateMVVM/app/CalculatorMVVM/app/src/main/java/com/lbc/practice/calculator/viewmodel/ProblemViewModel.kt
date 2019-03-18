@@ -166,10 +166,7 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
         }
     }
 
-
     fun checkEnd() = end
 
     fun getResultItems() = results
-
-
 }
