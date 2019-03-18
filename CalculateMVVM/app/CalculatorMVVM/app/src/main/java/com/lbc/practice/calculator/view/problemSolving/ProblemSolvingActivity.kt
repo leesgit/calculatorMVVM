@@ -95,7 +95,7 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
         resouceCorrect = resources.getIdentifier("correct", "raw", packageName)
         resouceInCorrect = resources.getIdentifier("in_correct", "raw", packageName)
 
-        music.mainsongStart(this, resouceMain)
+//        music.mainsongStart(this, resouceMain)
     }
 
     override fun onDestroy() {

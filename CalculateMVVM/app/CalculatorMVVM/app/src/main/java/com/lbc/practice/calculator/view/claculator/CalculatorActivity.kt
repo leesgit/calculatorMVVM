@@ -71,7 +71,7 @@ class CalculatorActivity : DaggerAppCompatActivity() {
             resourceids!![i] = resourceId
         }
         resouceCal = resources.getIdentifier("cal", "raw", packageName)
-        music.calSongStart(application, resouceCal)
+//        music.calSongStart(application, resouceCal)
     }
 
     override fun onStop() {
