@@ -19,10 +19,10 @@ import javax.inject.Inject
 class ProblemSolvingActivity : DaggerAppCompatActivity() {
 
 
-    var resouceMain = 0
-    var resouceCorrect = 0
-    var resouceInCorrect = 0
-    var adapter: ResultAdapterDataBinding? = null
+    private var resouceMain = 0
+    private var resouceCorrect = 0
+    private var resouceInCorrect = 0
+    private var adapter: ResultAdapterDataBinding? = null
     lateinit var binding: ActivityProblemSolvingBinding
 
     @Inject
@@ -40,7 +40,7 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
         val viewmodel = ViewModelProviders.of(this, viewModelFactory).get(ProblemViewModel::class.java)
         binding.let {
             it.viewmodel = viewmodel
-            it.setLifecycleOwner(this)
+            it.lifecycleOwner = this
         }
 
         viewmodel.answer.observe(this, Observer { data ->
@@ -60,7 +60,7 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
         viewmodel.getResultItems().observe(this, Observer { results ->
             if (results != null) {
                 adapter?.addItems(results)
-                adapter?.notifychanged()
+                adapter?.notifyDataSetChanged()
                 binding.rvProblemAnswerResultTag.smoothScrollToPosition(binding.rvProblemAnswerResultTag.getAdapter()!!.getItemCount());
 
                 viewmodel.answerSound()
@@ -84,7 +84,7 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
         init()
     }
 
-    fun init() {
+    private fun init() {
         adapter = ResultAdapterDataBinding()
 
 

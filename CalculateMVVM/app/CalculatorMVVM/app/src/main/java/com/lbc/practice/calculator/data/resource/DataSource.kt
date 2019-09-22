@@ -16,7 +16,7 @@ interface DataSource {
     }
 
     interface LoadDataCallBack3 {
-        fun onLoadData(count : Integer)
+        fun onLoadData(count : Int)
         fun onFailData(errorMsg: String)
     }
 

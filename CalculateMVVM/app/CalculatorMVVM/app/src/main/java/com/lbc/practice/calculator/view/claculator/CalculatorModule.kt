@@ -11,5 +11,4 @@ abstract class CalculatorModule {
     @ActivityScope
     @Binds
     abstract fun provideViewModelFactory(viewModelFactory: ViewModelFactory) : ViewModelProvider.Factory
-
 }

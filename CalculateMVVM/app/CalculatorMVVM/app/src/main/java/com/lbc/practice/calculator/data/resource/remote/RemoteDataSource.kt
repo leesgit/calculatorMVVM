@@ -19,7 +19,6 @@ class RemoteDataSource @Inject constructor() :DataSource {
     @Inject
     lateinit var retrofitManager: RetrofitManager
 
-
     @Inject
     lateinit var compositeDisposable: CompositeDisposable
 

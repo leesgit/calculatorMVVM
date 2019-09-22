@@ -9,7 +9,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ViewModelFactory @Inject constructor(var repository: Repository, var application: Application, var calc: CalculateManager) : ViewModelProvider.Factory{
+class ViewModelFactory @Inject constructor(var repository: Repository, var calc: CalculateManager) : ViewModelProvider.Factory{
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

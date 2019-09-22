@@ -24,10 +24,10 @@ class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
     fun btnNum(view: View) {
         view.tag
         val str = view.tag as String
-        if (statement.toString().equals("0")) {
-            statement = StringBuilder(str)
+        statement = if (statement.toString().equals("0")) {
+            StringBuilder(str)
         } else {
-            statement = statement.append(str)
+            statement.append(str)
         }
         text.postValue(statement.toString())
         symbol = true
@@ -35,10 +35,9 @@ class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
     }
 
     fun btnSymbol(view: View) {
-
         val num = StringTokenizer(statement.toString(), "+-/X")
         val oper = StringTokenizer(statement.toString(), "1234567890.")
-        if (symbol == true && num.countTokens() >= oper.countTokens()) {
+        if (symbol && num.countTokens() >= oper.countTokens()) {
             when (view.tag as String) {
                 "plus" -> statement.append("+")
                 "minus" -> statement.append("-")
@@ -51,9 +50,8 @@ class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
     }
 
     fun btnOption(view: View) {
-
         when (view.tag as String) {
-            "back" -> if (statement.toString().length != 0) {
+            "back" -> if (statement.toString().isNotEmpty()) {
                 statement.setLength(statement.length - 1)
                 text.postValue(statement.toString())
                 symbol = true
@@ -75,7 +73,7 @@ class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
         val decimalPoint = StringTokenizer(statement.toString(), "1234567890+-/X")
         val oper = StringTokenizer(statement.toString(), "1234567890.")
 
-        if (point == true && oper.countTokens() == decimalPoint.countTokens()) {
+        if (point && oper.countTokens() == decimalPoint.countTokens()) {
             statement.append(".")
             text.postValue(statement.toString())
             point = false
@@ -83,13 +81,13 @@ class CalculatorViewModel(calculator: CalculateManager) : ViewModel() {
     }
 
     fun textChange() {
-        if (text.value!!.length > 0) {
-            when (text.value!!.toString()[text.value!!.length - 1]) {
+        text.value?.let {
+            when (it[text.value!!.length - 1]) {
                 '+', '-', 'X', '/' ->
-                    rxText.value = calc.calculate(text.value!!.toString().substring(0, text.value!!.length - 1))
+                    rxText.value = calc.calculate(it.substring(0, it.length - 1))
                 '1', '2', '3', '4', '5', '6', '7', '8', '9' ->
                     numberSound.value = true
-                '0' -> if (text.value!!.length > 1) {
+                '0' -> if (it.length > 1) {
                     numberSoundZero.value = true
                 }
             }

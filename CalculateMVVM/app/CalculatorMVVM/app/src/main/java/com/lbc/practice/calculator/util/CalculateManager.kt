@@ -22,33 +22,32 @@ class CalculateManager {
 
             if (oper == 'X') {
                 first = st.pop()
-                t = java.lang.Double.valueOf(first)!!.toDouble()
-                t *= java.lang.Double.valueOf(num)!!.toDouble()
-                st.push(java.lang.Double.toString(t))
+                t = java.lang.Double.valueOf(first).toDouble()
+                t *= java.lang.Double.valueOf(num).toDouble()
+                st.push(t.toString())
             } else if (oper == '/') {
                 first = st.pop()
-                t = java.lang.Double.valueOf(first)!!.toDouble()
-                t /= java.lang.Double.valueOf(num)!!.toDouble()
+                t = java.lang.Double.valueOf(first).toDouble()
+                t /= java.lang.Double.valueOf(num).toDouble()
                 st.push(java.lang.Double.toString(t))
             } else if (oper == '+') {
                 st.push(num)
             } else if (oper == '-') {
-                st.push(java.lang.Double.toString(-1 * java.lang.Double.valueOf(num)!!.toDouble()))
+                st.push(java.lang.Double.toString(-1 * java.lang.Double.valueOf(num).toDouble()))
             }
         }
 
         while (!st.isEmpty()) {
             c = st.pop()
-            cnt += java.lang.Double.valueOf(c)!!.toDouble()
+            cnt += java.lang.Double.valueOf(c).toDouble()
         }
         cnt = Math.round(cnt * 10000) / 10000.0 //소수점 자릿수 반올림 할 만큼
-        var result = java.lang.Double.toString(cnt)
+        var result = cnt.toString()
         val length = result.length
         val indexOf = result.indexOf(".0")
         if (indexOf == length - 2) {
             result = result.substring(0, length - 2)
         }
-//        Log.e("렝스, 인덱스", length.toString() + ", " + indexOf)
         return result
     }
 }

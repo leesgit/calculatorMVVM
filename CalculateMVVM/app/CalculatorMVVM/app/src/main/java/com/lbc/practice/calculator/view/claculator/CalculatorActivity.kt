@@ -64,14 +64,13 @@ class CalculatorActivity : DaggerAppCompatActivity() {
     }
 
 
-    fun init() {
+    private fun init() {
         var resourceId: Int
         for (i in 0..9) {
             resourceId = resources.getIdentifier("num$i", "raw", packageName)
             resourceids!![i] = resourceId
         }
         resouceCal = resources.getIdentifier("cal", "raw", packageName)
-//        music.calSongStart(application, resouceCal)
     }
 
     override fun onStop() {

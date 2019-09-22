@@ -14,18 +14,13 @@ class ResultAdapterDataBinding : RecyclerView.Adapter<ResultAdapterDataBinding.I
     var list: MutableList<Result> = ArrayList<Result>()
 
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
-        val result = list.get(position)
+        val result = list[position]
         holder.bind(result)
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
-
-    fun notifychanged() {
-        notifyDataSetChanged()
-    }
-
 
     fun addItems(lists: MutableList<Result>) {
         if(list.size>0) {

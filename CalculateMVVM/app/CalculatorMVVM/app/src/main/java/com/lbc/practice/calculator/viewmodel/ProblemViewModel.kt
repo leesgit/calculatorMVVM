@@ -53,9 +53,9 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
 
     fun setStart(lessonType: Int) {
         dataSource.getProblemCount(object : DataSource.LoadDataCallBack3 {
-            override fun onLoadData(count: Integer) {
+            override fun onLoadData(count: Int) {
                 calString = "찬스 : "
-                problemCount = count.toInt()
+                problemCount = count
                 numCount.value = problemCount
                 calNum.postValue(calString + calCount)
 
@@ -70,9 +70,7 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
 
     fun setProblem(lessonType: Int) {
 
-        cnt++
-
-        if (cnt > problemCount) {
+        if (++cnt > problemCount) {
             end.postValue(true)
         } else {
             dataSource.getProblem(cnt, object : DataSource.LoadDataCallBack {
@@ -118,16 +116,16 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
     fun checkAnswer() {
         dataSource.getProblem(cnt, object : DataSource.LoadDataCallBack {
             override fun onLoadData(info: Problem) {
-                if (info.correctAnswer.equals(answer.value)) {
+                symbolState = if (info.correctAnswer.equals(answer.value)) {
                     list.add(Result(cnt, true))
                     results.postValue(list)
                     answerResult.postValue(true)
-                    symbolState = true
+                    true
                 } else {
                     list.add(Result(cnt, false))
                     results.postValue(list)
                     answerResult.postValue(false)
-                    symbolState = true
+                    true
                 }
             }
 
@@ -153,16 +151,18 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
     }
 
     fun checkChange() {
-        checkInput.value = answer.value!!.length > 0
+        checkInput.value = answer.value!!.isNotEmpty()
     }
 
     fun answerSound() {
-        if (results.value!!.get(results.value!!.size - 1).isResult && symbolState) {
-            correctSound.postValue(true)
-            symbolState = false
-        } else if (results.value!!.get(results.value!!.size - 1).isResult == false && symbolState) {
-            inCorrectSound.postValue(true)
-            symbolState = false
+        results.value?.let {
+            if (it[it.size - 1].isResult && symbolState) {
+                correctSound.postValue(true)
+                symbolState = false
+            } else if (!it[it.size - 1].isResult && symbolState) {
+                inCorrectSound.postValue(true)
+                symbolState = false
+            }
         }
     }
 
