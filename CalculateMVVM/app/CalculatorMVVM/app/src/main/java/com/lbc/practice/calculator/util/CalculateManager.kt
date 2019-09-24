@@ -16,24 +16,24 @@ class CalculateManager {
         while (nums.hasMoreTokens()) {
             val oper = opers.nextToken()[0]
             val num = nums.nextToken()
-//            Log.e("num값", num + "")
             val first: String
             var t: Double
 
-            if (oper == 'X') {
-                first = st.pop()
-                t = java.lang.Double.valueOf(first).toDouble()
-                t *= java.lang.Double.valueOf(num).toDouble()
-                st.push(t.toString())
-            } else if (oper == '/') {
-                first = st.pop()
-                t = java.lang.Double.valueOf(first).toDouble()
-                t /= java.lang.Double.valueOf(num).toDouble()
-                st.push(java.lang.Double.toString(t))
-            } else if (oper == '+') {
-                st.push(num)
-            } else if (oper == '-') {
-                st.push(java.lang.Double.toString(-1 * java.lang.Double.valueOf(num).toDouble()))
+            when (oper) {
+                'X' -> {
+                    first = st.pop()
+                    t = java.lang.Double.valueOf(first).toDouble()
+                    t *= java.lang.Double.valueOf(num).toDouble()
+                    st.push(t.toString())
+                }
+                '/' -> {
+                    first = st.pop()
+                    t = java.lang.Double.valueOf(first).toDouble()
+                    t /= java.lang.Double.valueOf(num).toDouble()
+                    st.push(java.lang.Double.toString(t))
+                }
+                '+' -> st.push(num)
+                '-' -> st.push(java.lang.Double.toString(-1 * java.lang.Double.valueOf(num).toDouble()))
             }
         }
 

@@ -9,9 +9,9 @@ import com.lbc.practice.calculator.databinding.ItemProblemSolvingResultTagBindin
 import com.lbc.practice.calculator.viewmodel.ResultListViewModel
 import java.util.ArrayList
 
-class ResultAdapterDataBinding : RecyclerView.Adapter<ResultAdapterDataBinding.InnerViewHolder>() {
+class ResultAdapter : RecyclerView.Adapter<ResultAdapter.InnerViewHolder>() {
 
-    var list: MutableList<Result> = ArrayList<Result>()
+    private var list: MutableList<Result> = ArrayList()
 
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
         val result = list[position]
@@ -22,12 +22,8 @@ class ResultAdapterDataBinding : RecyclerView.Adapter<ResultAdapterDataBinding.I
         return list.size
     }
 
-    fun addItems(lists: MutableList<Result>) {
-        if(list.size>0) {
-            list.add(lists.get(lists.size-1))
-        } else {
-            list.addAll(lists)
-        }
+    fun setItem(list: MutableList<Result>) {
+        this.list = list
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerViewHolder {
@@ -40,7 +36,6 @@ class ResultAdapterDataBinding : RecyclerView.Adapter<ResultAdapterDataBinding.I
         fun bind(itemResult: Result) {
             with(binding) {
                 viewmodel = ResultListViewModel(itemResult)
-                executePendingBindings()
             }
         }
         //여기서 viewmodel을 할당하지 않고 바로 itemResult를 넘겨 databinding 해도 되지만 다양한 경험을 위해 viewmodel이용 하였습니다.

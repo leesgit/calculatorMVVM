@@ -18,8 +18,7 @@ class CalculatorActivity : DaggerAppCompatActivity() {
 
     lateinit var binding: ActivityCalculatorBinding
 
-    var resourceids: IntArray? = IntArray(10)
-    var resouceCal: Int = 0
+    lateinit var viewModel: CalculatorViewModel
 
     @Inject
     lateinit var music: MusicManager
@@ -27,8 +26,6 @@ class CalculatorActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    lateinit var calc: CalculateManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,27 +33,24 @@ class CalculatorActivity : DaggerAppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_calculator)
-        val viewmodel = ViewModelProviders.of(this, viewModelFactory).get(CalculatorViewModel::class.java)
-        binding.let {
-            it.viewmodel = viewmodel
-            it.setLifecycleOwner(this)
-        }
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CalculatorViewModel::class.java)
+        binding.viewmodel = viewModel
 
-        viewmodel.text.observe(this, Observer {
-            viewmodel.textChange()
+        viewModel.text.observe(this, Observer {
+            viewModel.textChange()
         })
 
-        viewmodel.numberSound.observe(this, Observer {
+        viewModel.numberSound.observe(this, Observer {
             if (it) {
-                music.numberSound(application, resourceids!![Integer.parseInt(it.toString()[viewmodel.text.value!!.length - 1].toString())], Integer.parseInt(it.toString()[viewmodel.text.value!!.length - 1].toString()))
-                viewmodel.numberSound.value = false
+                music.numberSound(application, viewModel.resourceids!![Integer.parseInt(it.toString()[viewModel.text.value!!.length - 1].toString())], Integer.parseInt(it.toString()[viewModel.text.value!!.length - 1].toString()))
+                viewModel.numberSound.value = false
             }
         })
 
-        viewmodel.numberSoundZero.observe(this, Observer {
+        viewModel.numberSoundZero.observe(this, Observer {
             if (it) {
-                music.numberSound(application, resourceids!![0], 0)
-                viewmodel.numberSoundZero.value = false
+                music.numberSound(application, viewModel.resourceids!![0], 0)
+                viewModel.numberSoundZero.value = false
             }
         })
 
@@ -68,9 +62,9 @@ class CalculatorActivity : DaggerAppCompatActivity() {
         var resourceId: Int
         for (i in 0..9) {
             resourceId = resources.getIdentifier("num$i", "raw", packageName)
-            resourceids!![i] = resourceId
+            viewModel.resourceids!![i] = resourceId
         }
-        resouceCal = resources.getIdentifier("cal", "raw", packageName)
+        viewModel.resouceCal = resources.getIdentifier("cal", "raw", packageName)
     }
 
     override fun onStop() {
@@ -80,7 +74,7 @@ class CalculatorActivity : DaggerAppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        music.calSongStart(application, resouceCal)
+        music.calSongStart(application, viewModel.resouceCal)
     }
 
 }

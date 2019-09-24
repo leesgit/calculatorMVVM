@@ -39,7 +39,7 @@ public class RetrofitManager() {
     interface RetrofitUrl {
 
         companion object {
-            val BASE_URL = "http://192.168.43.209:8080"
+            val BASE_URL = "http://10.0.2.2:8080/"
         }
 
         @POST("/cal/calculator/getproblem")
@@ -49,7 +49,7 @@ public class RetrofitManager() {
         fun getLesson(@Body lessonData: LessonData): Observable<LessonData>
 
         @GET("/cal/calculator/getproblemcount")
-        fun getCount(): Observable<Integer>
+        fun getCount(): Observable<Int>
 
     }
 }

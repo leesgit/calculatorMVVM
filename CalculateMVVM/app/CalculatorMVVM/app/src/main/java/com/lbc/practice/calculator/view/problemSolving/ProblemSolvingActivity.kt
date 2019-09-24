@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lbc.practice.calculator.R
-import com.lbc.practice.calculator.adapter.ResultAdapterDataBinding
+import com.lbc.practice.calculator.adapter.ResultAdapter
 import com.lbc.practice.calculator.databinding.ActivityProblemSolvingBinding
 import com.lbc.practice.calculator.util.MusicManager
 import com.lbc.practice.calculator.viewmodel.ProblemViewModel
@@ -18,11 +18,6 @@ import javax.inject.Inject
 
 class ProblemSolvingActivity : DaggerAppCompatActivity() {
 
-
-    private var resouceMain = 0
-    private var resouceCorrect = 0
-    private var resouceInCorrect = 0
-    private var adapter: ResultAdapterDataBinding? = null
     lateinit var binding: ActivityProblemSolvingBinding
 
     @Inject
@@ -31,53 +26,61 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    lateinit var viewModel: ProblemViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_problem_solving)
 
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ProblemViewModel::class.java)
 
-        val viewmodel = ViewModelProviders.of(this, viewModelFactory).get(ProblemViewModel::class.java)
         binding.let {
-            it.viewmodel = viewmodel
-            it.lifecycleOwner = this
+            it.viewmodel = viewModel
+            it.adapter = ResultAdapter()
+            it.adapter!!.setItem(viewModel.list)
         }
 
-        viewmodel.answer.observe(this, Observer { data ->
-            viewmodel.checkChange()
+        binding.rvProblemAnswerResultTag.let {
+            it.adapter = binding.adapter!!
+            it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        viewModel.answer.observe(this, Observer {
+            viewModel.checkChange()
         })
 
-        viewmodel.checkEnd().observe(this, Observer { judge ->
+        viewModel.checkEnd().observe(this, Observer { judge ->
             if (judge!!) {
                 finish()
             }
         })
 
-        viewmodel.toastMessage.observe(this, Observer {
+        viewModel.toastMessage.observe(this, Observer {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
-        viewmodel.getResultItems().observe(this, Observer { results ->
+        viewModel.getResultItems().observe(this, Observer { results ->
             if (results != null) {
-                adapter?.addItems(results)
-                adapter?.notifyDataSetChanged()
-                binding.rvProblemAnswerResultTag.smoothScrollToPosition(binding.rvProblemAnswerResultTag.getAdapter()!!.getItemCount());
+                binding.adapter!!.notifyDataSetChanged()
 
-                viewmodel.answerSound()
+                binding.rvProblemAnswerResultTag.smoothScrollToPosition(binding.rvProblemAnswerResultTag.adapter!!.itemCount)
+
+                viewModel.answerSound()
             }
         })
 
-        viewmodel.correctSound.observe(this, Observer {
+        viewModel.correctSound.observe(this, Observer {
             if (it) {
-                music.answerSound(this, resouceCorrect, true)
-                viewmodel.correctSound.value = false
+                music.answerSound(this, viewModel.resouceCorrect, true)
+                viewModel.correctSound.value = false
             }
         })
 
-        viewmodel.inCorrectSound.observe(this, Observer {
+        viewModel.inCorrectSound.observe(this, Observer {
             if (it) {
-                music.answerSound(this, resouceInCorrect, false)
-                viewmodel.inCorrectSound.value = false
+                music.answerSound(this, viewModel.resouceInCorrect, false)
+                viewModel.inCorrectSound.value = false
             }
         })
 
@@ -85,17 +88,9 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
     }
 
     private fun init() {
-        adapter = ResultAdapterDataBinding()
-
-
-        binding.rvProblemAnswerResultTag.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvProblemAnswerResultTag.adapter = adapter
-
-        resouceMain = resources.getIdentifier("main", "raw", packageName)
-        resouceCorrect = resources.getIdentifier("correct", "raw", packageName)
-        resouceInCorrect = resources.getIdentifier("in_correct", "raw", packageName)
-
-//        music.mainsongStart(this, resouceMain)
+        viewModel.resouceMain = resources.getIdentifier("main", "raw", packageName)
+        viewModel.resouceCorrect = resources.getIdentifier("correct", "raw", packageName)
+        viewModel.resouceInCorrect = resources.getIdentifier("in_correct", "raw", packageName)
     }
 
     override fun onDestroy() {
@@ -105,7 +100,7 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        music.mainsongStart(this, resouceMain)
+        music.mainsongStart(this, viewModel.resouceMain)
     }
 
     override fun onStop() {

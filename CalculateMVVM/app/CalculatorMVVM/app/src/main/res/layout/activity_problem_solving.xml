@@ -8,6 +8,9 @@
         <variable
             name="viewmodel"
             type="com.lbc.practice.calculator.viewmodel.ProblemViewModel" />
+
+        <variable name="adapter" type="com.lbc.practice.calculator.adapter.ResultAdapter"/>
+
     </data>
 
 

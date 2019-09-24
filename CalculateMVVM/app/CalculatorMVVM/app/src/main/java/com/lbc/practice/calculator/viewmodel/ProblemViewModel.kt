@@ -31,10 +31,14 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
     val checkInput = MutableLiveData<Boolean>()
     val calstate = MutableLiveData<Boolean>()
     val results = MediatorLiveData<MutableList<Result>>()
-    var list: MutableList<Result> = ArrayList<Result>()
+    var list: MutableList<Result> = ArrayList()
     val toastMessage = MutableLiveData<String>()
     val correctSound = MutableLiveData<Boolean>()
     val inCorrectSound = MutableLiveData<Boolean>()
+
+    var resouceMain = 0
+    var resouceCorrect = 0
+    var resouceInCorrect = 0
 
     var cnt = 0
     var calCount = 2

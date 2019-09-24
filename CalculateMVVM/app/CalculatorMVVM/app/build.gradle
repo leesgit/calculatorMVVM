@@ -3,144 +3,77 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'com.android.application'
-apply plugin: 'jacoco'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'kotlin-allopen'
-
-allOpen {
-    annotation 'com.android.example.github.testing.OpenClass'
-}
 android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
+    compileSdkVersion 28
     defaultConfig {
-        applicationId "com.android.example.github"
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
+        applicationId "com.lbc.practice.calculator"
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.android.example.github.util.GithubTestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug {
-            testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    sourceSets {
-        androidTest.java.srcDirs += "src/test-common/java"
-        test.java.srcDirs += "src/test-common/java"
+    dataBinding {
+        enabled = true
     }
-    lintOptions {
-        lintConfig rootProject.file('lint.xml')
-    }
-}
+    buildToolsVersion = '28.0.3'
 
-jacoco {
-    toolVersion = "0.7.4+"
 }
 
 dependencies {
-    implementation deps.support.app_compat
-    implementation deps.support.recyclerview
-    implementation deps.support.cardview
-    implementation deps.support.design
-    implementation deps.support.core_ktx
-    implementation deps.room.runtime
-    implementation deps.room.runtime
-    implementation deps.lifecycle.runtime
-    implementation deps.lifecycle.extensions
-    implementation deps.lifecycle.java8
-    implementation deps.retrofit.runtime
-    implementation deps.retrofit.gson
-    implementation deps.retrofit.rxjava
-    implementation deps.retrofit.okhttp
-    implementation deps.retrofit.okhttp_urlconnection
+    // Google Support Lib
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "androidx.appcompat:appcompat:$support_version"
+    implementation "androidx.exifinterface:exifinterface:$support_version"
 
-    implementation deps.glide.runtime
+    implementation "androidx.browser:browser:$support_version"
+    implementation "androidx.legacy:legacy-support-v4:$support_version"
+    implementation "androidx.recyclerview:recyclerview:$support_version"
+    implementation "com.google.android.material:material:$support_version"
+    implementation "androidx.cardview:cardview:$support_version"
 
-    implementation deps.rxjava2
-    implementation deps.rx_android
 
-    implementation deps.dagger.runtime
-    implementation deps.dagger.android
-    implementation deps.dagger.android_support
-    implementation deps.constraint_layout
-    implementation deps.kotlin.stdlib
+    // DataBinding
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation deps.timber
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
 
-    kapt deps.dagger.android_support_compiler
-    kapt deps.dagger.compiler
-    kapt deps.room.compiler
-    kapt deps.lifecycle.compiler
+    // Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava2_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
 
-    testImplementation deps.junit
-    testImplementation deps.mock_web_server
-    testImplementation deps.arch_core.testing
-    testImplementation deps.mockito.core
+    //     Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_version"
 
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.rules
+    // Dagger2
+    implementation "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
-    androidTestImplementation deps.support.app_compat
-    androidTestImplementation deps.support.recyclerview
-    androidTestImplementation deps.support.cardview
-    androidTestImplementation deps.support.design
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
 
-    androidTestImplementation deps.espresso.core
-    androidTestImplementation deps.espresso.contrib
 
-    androidTestImplementation deps.arch_core.testing
-    androidTestImplementation deps.mockito.core
-    androidTestImplementation deps.mockito.android
-}
-
-task fullCoverageReport(type: JacocoReport) {
-    dependsOn 'createDebugCoverageReport'
-    dependsOn 'testDebugUnitTest'
-    reports {
-        xml.enabled = true
-        html.enabled = true
     }
-
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
-                      '**/*Test*.*', 'android/**/*.*',
-                      '**/*_MembersInjector.class',
-                      '**/Dagger*Component.class',
-                      '**/Dagger*Component$Builder.class',
-                      '**/*_*Factory.class',
-                      '**/*ComponentImpl.class',
-                      '**/*SubComponentBuilder.class']
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-    def mainSrc = "${project.projectDir}/src/main/java"
-
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = fileTree(dir: "$buildDir", includes: [
-            "jacoco/testDebugUnitTest.exec",
-            "outputs/code-coverage/connected/*coverage.ec"
-    ])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
-
-// we need all open to run tests which  a we enable only for debug builds.
-project.tasks.whenTaskAdded {
-    if (it.name == "testReleaseUnitTest") {
-        it.enabled = false
-    }
-}
-
