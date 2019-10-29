@@ -6,7 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lbc.practice.calculator.data.LessonData
-import com.lbc.practice.calculator.data.LessonType
+import com.lbc.practice.calculator.util.LessonType
 import com.lbc.practice.calculator.data.Problem
 import com.lbc.practice.calculator.data.Result
 import com.lbc.practice.calculator.data.resource.DataSource
