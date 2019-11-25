@@ -1,5 +1,6 @@
 package com.lbc.practice.calculator.view.problemSolving
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import com.lbc.practice.calculator.R
 import com.lbc.practice.calculator.adapter.ResultAdapter
 import com.lbc.practice.calculator.databinding.ActivityProblemSolvingBinding
 import com.lbc.practice.calculator.util.MusicManager
+import com.lbc.practice.calculator.view.claculator.CalculatorActivity
 import com.lbc.practice.calculator.viewmodel.ProblemViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -82,6 +84,11 @@ class ProblemSolvingActivity : DaggerAppCompatActivity() {
                 music.answerSound(this, viewModel.resouceInCorrect, false)
                 viewModel.inCorrectSound.value = false
             }
+        })
+
+        viewModel.toCalculatorActivity.observe(this, Observer {
+            val intent = Intent(this, CalculatorActivity::class.java)
+            startActivity(intent)
         })
 
         init()

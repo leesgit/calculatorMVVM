@@ -1,6 +1,5 @@
 package com.lbc.practice.calculator.viewmodel
 
-import android.content.Intent
 import android.view.View
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +10,7 @@ import com.lbc.practice.calculator.data.Problem
 import com.lbc.practice.calculator.data.Result
 import com.lbc.practice.calculator.data.resource.DataSource
 import com.lbc.practice.calculator.data.resource.Repository
-import com.lbc.practice.calculator.view.claculator.CalculatorActivity
+import com.lbc.practice.calculator.util.SingleLiveEvent
 import java.util.ArrayList
 
 class ProblemViewModel(repository: Repository) : ViewModel() {
@@ -35,6 +34,7 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
     val toastMessage = MutableLiveData<String>()
     val correctSound = MutableLiveData<Boolean>()
     val inCorrectSound = MutableLiveData<Boolean>()
+    val toCalculatorActivity = SingleLiveEvent<Any>()
 
     var resouceMain = 0
     var resouceCorrect = 0
@@ -109,11 +109,10 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
         if (calCount > 0) {
             calCount--
             calNum.postValue(calString + calCount)
-            val intent = Intent(view.context, CalculatorActivity::class.java)
-            view.context.startActivity(intent)
-            if (calCount == 0) {
-                calstate.postValue(false)
-            }
+
+            toCalculatorActivity.call()
+        } else if (calCount == 0) {
+            calstate.postValue(false)
         }
     }
 
@@ -131,6 +130,7 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
                     answerResult.postValue(false)
                     true
                 }
+                checkNext()
             }
 
             override fun onFailData(errorMsg: String) {
@@ -138,6 +138,9 @@ class ProblemViewModel(repository: Repository) : ViewModel() {
             }
         })
 
+    }
+
+    fun checkNext() {
         if (cnt == problemCount) {
             next.postValue("학습완료")
         } else {
